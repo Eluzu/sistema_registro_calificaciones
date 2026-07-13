@@ -1,88 +1,88 @@
 import os
 
-ARCHIVO = "notas.txt"
+NOMBRE_ARCHIVO = "notas.txt"
 
-def p(n, c1, c2, c3):
+def guardar_registro_calificacion(nombre_estudiante, calificacion1, calificacion2, calificacion3):
 
-    if n != "" and c1 >= 0 and c2 >= 0 and c3 >= 0:
+    if nombre_estudiante != "" and calificacion1 >= 0 and calificacion2 >= 0 and calificacion3 >= 0:
         
-        pr = (c1 + c2 + c3) / 3
+        promedio = (calificacion1 + calificacion2 + calificacion3) / 3
 
-        if pr >= 7:
-            e = "APROBADO"
+        if promedio >= 7:
+            estado = "APROBADO"
         else:
-            e = "REPROBADO"
+            estado = "REPROBADO"
 
-        f = open(ARCHIVO, "a")
+        archivo = open(NOMBRE_ARCHIVO, "a")
 
-        f.write(
-            n + "," +
-            str(c1) + "," +
-            str(c2) + "," +
-            str(c3) + "," +
-            str(pr) + "," +
-            e + "\n"
+        archivo.write(
+            nombre_estudiante + "," +
+            str(calificacion1) + "," +
+            str(calificacion2) + "," +
+            str(calificacion3) + "," +
+            str(promedio) + "," +
+            estado + "\n"
         )
 
-        f.close()
+        archivo.close()
 
         print("Registro guardado")
 
     else:
         print("Datos incorrectos")
 
-def l():
+def listar_registros():
 
-    if os.path.exists(ARCHIVO):
+    if os.path.exists(NOMBRE_ARCHIVO):
 
-        f = open(ARCHIVO)
+        archivo = open(NOMBRE_ARCHIVO)
 
         print("-" * 70)
-        for x in f:
+        for linea in archivo:
 
-            d = x.strip().split(",")
+            datos_registro = linea.strip().split(",")
 
             print(
-                d[0],
-                d[1],
-                d[2],
-                d[3],
-                d[4],
-                d[5]
+                datos_registro[0],
+                datos_registro[1],
+                datos_registro[2],
+                datos_registro[3],
+                datos_registro[4],
+                datos_registro[5]
             )
 
-        f.close()
+        archivo.close()
 
     else:
         print("No existen registros")
 
-def r():
+def generar_reporte_aprobados():
 
-    if os.path.exists(ARCHIVO):
+    if os.path.exists(NOMBRE_ARCHIVO):
 
-        f = open(ARCHIVO)
+        archivo = open(NOMBRE_ARCHIVO)
 
         aprobados = 0
         reprobados = 0
 
-        for x in f:
+        for linea in archivo:
 
-            d = x.strip().split(",")
+            datos_registro = linea.strip().split(",")
 
-            if d[5] == "APROBADO":
+            if datos_registro[5] == "APROBADO":
                 aprobados += 1
             else:
                 reprobados += 1
-
-        f.close()
+        
+        archivo.close()
 
         print("Aprobados:", aprobados)
         print("Reprobados:", reprobados)
 
-p("Ana", 8, 9, 10)
-p("Luis", 5, 6, 4)
-p("Carlos", 7, 8, 6)
+guardar_registro_calificacion("Ana", 8, 9, 10)
+guardar_registro_calificacion("Luis", 5, 6, 4)
+guardar_registro_calificacion("Carlos", 7, 8, 6)
 
-l()
+listar_registros()
 
-r()
+generar_reporte_aprobados()
