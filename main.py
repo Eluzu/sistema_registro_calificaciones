@@ -7,11 +7,18 @@ CALIFICACION_MINIMA_APROBATORIA = 7
 ESTADO_APROBADO = "APROBADO"
 ESTADO_REPROBADO = "REPROBADO"
 
-def guardar_registro_calificacion(nombre_estudiante, calificacion1, calificacion2, calificacion3):
+def guardar_registro_calificacion(nombre_estudiante: str, calificacion1: float, calificacion2: float, calificacion3: float) -> None:
     """
     Calcula el promedio de un estudiante, determina si aprobó y
     guarda el registro en un archivo.
+
+    Args:
+        nombre_estudiante (str): El nombre del estudiante.
+        calificacion1 (float): La primera calificación.
+        calificacion2 (float): La segunda calificación.
+        calificacion3 (float): La tercera calificación.
     """
+
     if nombre_estudiante != "" and all(c >= 0 for c in [calificacion1, calificacion2, calificacion3]):
         
         promedio = (calificacion1 + calificacion2 + calificacion3) / 3
@@ -30,8 +37,12 @@ def guardar_registro_calificacion(nombre_estudiante, calificacion1, calificacion
     else:
         print(f"Datos incorrectos para '{nombre_estudiante}': el nombre no puede estar vacío y las calificaciones deben ser positivas.")
 
-def listar_registros():
-    """Lee y muestra todos los registros del archivo de calificaciones."""
+def listar_registros() -> None:
+    """Lee y muestra todos los registros del archivo de calificaciones en formato de tabla.
+
+    Si el archivo no existe, imprime un mensaje informativo.
+    Maneja y advierte sobre líneas con formato incorrecto en el archivo.
+    """
     if not os.path.exists(NOMBRE_ARCHIVO):
         print("No existen registros para mostrar.")
         return
@@ -51,8 +62,12 @@ def listar_registros():
     print("-" * 80)
 
 
-def generar_reporte_aprobados():
-    """Cuenta y muestra el total de estudiantes aprobados y reprobados."""
+def generar_reporte_aprobados() -> None:
+    """Cuenta y muestra un resumen del total de estudiantes aprobados y reprobados.
+
+    Si el archivo no existe, imprime un mensaje informativo.
+    Maneja y advierte sobre líneas con formato incorrecto al procesar el reporte.
+    """
     if not os.path.exists(NOMBRE_ARCHIVO):
         print("No existen registros para generar un reporte.")
         return
