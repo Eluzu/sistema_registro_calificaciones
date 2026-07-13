@@ -2,6 +2,11 @@ import os
 
 NOMBRE_ARCHIVO = "notas.txt"
 
+# --- Constantes Globales ---
+CALIFICACION_MINIMA_APROBATORIA = 7
+ESTADO_APROBADO = "APROBADO"
+ESTADO_REPROBADO = "REPROBADO"
+
 def guardar_registro_calificacion(nombre_estudiante, calificacion1, calificacion2, calificacion3):
     """
     Calcula el promedio de un estudiante, determina si aprobó y
@@ -10,7 +15,7 @@ def guardar_registro_calificacion(nombre_estudiante, calificacion1, calificacion
     if nombre_estudiante != "" and all(c >= 0 for c in [calificacion1, calificacion2, calificacion3]):
         
         promedio = (calificacion1 + calificacion2 + calificacion3) / 3
-        estado = "APROBADO" if promedio >= 7 else "REPROBADO"
+        estado = ESTADO_APROBADO if promedio >= CALIFICACION_MINIMA_APROBATORIA else ESTADO_REPROBADO
 
         # Usamos 'with open' para asegurar que el archivo se cierre automáticamente
         # y f-strings para una escritura de datos más limpia.
@@ -60,7 +65,7 @@ def generar_reporte_aprobados():
             try:
                 # Leemos solo la parte que necesitamos (el estado)
                 datos_registro = linea.strip().split(",")
-                if datos_registro[5] == "APROBADO":
+                if datos_registro[5] == ESTADO_APROBADO:
                     aprobados += 1
                 else:
                     reprobados += 1
