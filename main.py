@@ -12,9 +12,9 @@ def guardar_registro_calificacion(nombre_estudiante, calificacion1, calificacion
         promedio = (calificacion1 + calificacion2 + calificacion3) / 3
         estado = "APROBADO" if promedio >= 7 else "REPROBADO"
 
-        # Usamos 'with open' para asegurar que el archivo se cierre automáticamente.
-        # Usamos f-string para una escritura más limpia y formateamos el promedio.
-        with open(NOMBRE_ARCHIVO, "a") as archivo:
+        # Usamos 'with open' para asegurar que el archivo se cierre automáticamente
+        # y f-strings para una escritura de datos más limpia.
+        with open(NOMBRE_ARCHIVO, "a", encoding="utf-8") as archivo:
             archivo.write(
                 f"{nombre_estudiante},{calificacion1},{calificacion2},"
                 f"{calificacion3},{promedio:.2f},{estado}\n"
@@ -23,7 +23,7 @@ def guardar_registro_calificacion(nombre_estudiante, calificacion1, calificacion
         print("Registro guardado")
 
     else:
-        print("Datos incorrectos: el nombre no puede estar vacío y las calificaciones deben ser positivas.")
+        print(f"Datos incorrectos para '{nombre_estudiante}': el nombre no puede estar vacío y las calificaciones deben ser positivas.")
 
 def listar_registros():
     """Lee y muestra todos los registros del archivo de calificaciones."""
@@ -32,7 +32,7 @@ def listar_registros():
         return
 
     # 'with open' asegura el cierre del archivo incluso si hay errores.
-    with open(NOMBRE_ARCHIVO, "r") as archivo:
+    with open(NOMBRE_ARCHIVO, "r", encoding="utf-8") as archivo:
         print("-" * 80)
         print(f"{'NOMBRE':<20} | {'C1':>5} | {'C2':>5} | {'C3':>5} | {'PROMEDIO':>10} | {'ESTADO':>12}")
         print("-" * 80)
@@ -55,7 +55,7 @@ def generar_reporte_aprobados():
     aprobados = 0
     reprobados = 0
 
-    with open(NOMBRE_ARCHIVO, "r") as archivo:
+    with open(NOMBRE_ARCHIVO, "r", encoding="utf-8") as archivo:
         for linea in archivo:
             try:
                 # Leemos solo la parte que necesitamos (el estado)
